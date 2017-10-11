@@ -870,6 +870,7 @@ void loadGame(GameState *game){
     /// Load textures
     SDL_Surface *surface = NULL;
     
+    
     // Enemies
     // surface = IMG_Load("img/enemy01.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/enemy01.png");
@@ -1337,20 +1338,23 @@ void loadGame(GameState *game){
     game->font2 = TTF_OpenFont("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/PIXELADE.ttf", 32);
     
     
-    // Load music
+    // Load music (WINDOWS)
     // game->bg01 = Mix_LoadMUS("audio/Take_the_Lead.mp3");
-    game->bg01 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Take_the_Lead.mp3");
     // game->bg02 = Mix_LoadMUS("audio/Cool_Rock.mp3");
-    game->bg02 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Cool_Rock.mp3");
     // game->bg03 = Mix_LoadMUS("audio/Saved_By_The_Ringtone.mp3");
-    game->bg03 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Saved_By_The_Ringtone.mp3");
+    // game->bg03 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Saved_By_The_Ringtone.mp3"); // Removed to avoid copyright issues
     // game->bg04 = Mix_LoadMUS("audio/The_Cannery.mp3");
-    game->bg04 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/The_Cannery.mp3");
     // game->bg05 = Mix_LoadMUS("audio/Kool_Kats.mp3");
-    game->bg05 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Kool_Kats.mp3");
     // game->bg06 = Mix_LoadMUS("audio/game_over.mp3");
-    game->bg06 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/game_over.mp3");
     // game->bg07 = Mix_LoadMUS("audio/win_game.wav");
+    
+    // Load music (MAC)
+    game->bg01 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Take_the_Lead.mp3");
+    game->bg02 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Cool_Rock.mp3");
+    game->bg03 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Cryptic_Sorrow.mp3");
+    game->bg04 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/The_Cannery.mp3");
+    game->bg05 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Kool_Kats.mp3");
+    game->bg06 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/game_over.mp3");
     game->bg07 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/win_game.wav");
     
     
