@@ -5,6 +5,9 @@
 //  Created by Julie Glasdam on 30/06/2017.
 //  Copyright © 2017 Julie Glasdam. All rights reserved.
 //
+// Codeblocks: loadgame()
+// xCode: loadGameMac()
+// line 3130
 
 
 #include <stdio.h>
@@ -865,131 +868,559 @@ void errorMsgLoadTextures(char *message, SDL_Surface *surface) {
 }
 
 // Load textures, fonts and audio, assign them to objects, and initialize attributes
-void loadGame(GameState *game){
+void loadGame(GameState *game) {
+    /// Load textures
+    SDL_Surface *surface = NULL;
+    
+    
+    // Enemies
+    surface = IMG_Load("img/enemy01.png");
+    errorMsgLoadTextures("lvl01/enemy01", surface);
+    game->enemyFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/enemy02.png");
+    errorMsgLoadTextures("lvl01/enemy02", surface);
+    game->enemyFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl01/enemy01Helmet.png");
+    errorMsgLoadTextures("enemy01Helmet", surface);
+    game->enemyFramesHelmet[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl01/enemy02Helmet.png");
+    errorMsgLoadTextures("enemy02Helmet", surface);
+    game->enemyFramesHelmet[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl01/enemy03Helmet.png");
+    errorMsgLoadTextures("enemy01shadow", surface);
+    game->enemyFramesShadow[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl03/enemy01shadow.png");
+    errorMsgLoadTextures("enemy02shadow", surface);
+    game->enemyFramesShadow[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl03/lvl04/enemy01.png");
+    errorMsgLoadTextures("lvl04/enemy01", surface);
+    game->enemyFrames04[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl04/lvl04/enemy02.png");
+    errorMsgLoadTextures("lvl04/enemy02", surface);
+    game->enemyFrames04[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/enemy01.png");
+    errorMsgLoadTextures("lvl02/enemy01", surface);
+    game->enemyFrames02[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/enemy02.png");
+    errorMsgLoadTextures("lvl02/enemy02", surface);
+    game->enemyFrames02[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Player
+    surface = IMG_Load("img/player01.png");
+    errorMsgLoadTextures("player01", surface);
+    game->manFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/player02.png");
+    errorMsgLoadTextures("player02", surface);
+    game->manFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/playerJump.png");
+    errorMsgLoadTextures("playerJump", surface);
+    game->manFrames[2] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Torches
+    surface = IMG_Load("img/lvl02/torch01.png");
+    errorMsgLoadTextures("torch01", surface);
+    game->torchFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/torch02.png");
+    errorMsgLoadTextures("torch02", surface);
+    game->torchFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/player01Helmet.png");
+    errorMsgLoadTextures("player01Helmet", surface);
+    game->manFramesHelmet[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/player02Helmet.png");
+    errorMsgLoadTextures("player02Helmet", surface);
+    game->manFramesHelmet[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/playerJumpHelmet.png");
+    errorMsgLoadTextures("playerJumpHelmet", surface);
+    game->manFramesHelmet[2] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Pigeons
+    surface = IMG_Load("img/lvl04/pigeon1.png");
+    errorMsgLoadTextures("pigeon1", surface);
+    game->pigeonFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl04/pigeon2.png");
+    errorMsgLoadTextures("pigeon2", surface);
+    game->pigeonFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    // Grass ledges
+    surface = IMG_Load("img/lvl01/ledge.png");
+    errorMsgLoadTextures("lvl01/ledge", surface);
+    game->textureLedgeLvl01 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/ledge.png");
+    errorMsgLoadTextures("lvl02/ledge", surface);
+    game->textureLedgeLvl02 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl03/ledge.png");
+    errorMsgLoadTextures("lvl03/ledge", surface);
+    game->textureLedgeLvl03 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl04/ledge.png");
+    errorMsgLoadTextures("lvl04/pillar", surface);
+    game->textureLedgeLvl04 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    // Paths
+    surface = IMG_Load("img/lvl01/path.png");
+    errorMsgLoadTextures("lvl01/path", surface);
+    game->texturePathLvl01 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/path.png");
+    errorMsgLoadTextures("lvl02/path", surface);
+    game->texturePathLvl02 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl03/path.png");
+    errorMsgLoadTextures("lvl03/path", surface);
+    game->texturePathLvl03 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl04/path.png");
+    errorMsgLoadTextures("lvl04/path", surface);
+    game->texturePathLvl04 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    // Coins
+    surface = IMG_Load("img/coinTemp.png");
+    errorMsgLoadTextures("coinTemp", surface);
+    game->textureCoins = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    // Flags
+    surface = IMG_Load("img/flag.png");
+    errorMsgLoadTextures("flag", surface);
+    game->textureFlag = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    // Heart
+    surface = IMG_Load("img/heart/1livesLeftWhiteOutline.png");
+    errorMsgLoadTextures("1livesLeftWhiteOutline", surface);
+    game->textureHeartWhiteFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/2livesLeftWhiteOutline.png");
+    errorMsgLoadTextures("2livesLeftWhiteOutline", surface);
+    game->textureHeartWhiteFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/3livesLeftWhiteOutline.png");
+    errorMsgLoadTextures("3livesLeftWhiteOutline", surface);
+    game->textureHeartWhiteFrames[2] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/4livesLeftWhiteOutline.png");
+    errorMsgLoadTextures("4livesLeftWhiteOutline", surface);
+    game->textureHeartWhiteFrames[3] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/5livesLeftWhiteOutline.png");
+    errorMsgLoadTextures("5livesLeftWhiteOutline", surface);
+    game->textureHeartWhiteFrames[4] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/6livesLeftWhiteOutline.png");
+    errorMsgLoadTextures("6livesLeftWhiteOutline", surface);
+    game->textureHeartWhiteFrames[5] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    surface = IMG_Load("img/heart/1livesLeftBlackOutline.png");
+    errorMsgLoadTextures("1livesLeftBlackOutline", surface);
+    game->textureHeartBlackFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/2livesLeftBlackOutline.png");
+    errorMsgLoadTextures("2livesLeftBlackOutline", surface);
+    game->textureHeartBlackFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/3livesLeftBlackOutline.png");
+    errorMsgLoadTextures("3livesLeftBlackOutline", surface);
+    game->textureHeartBlackFrames[2] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/4livesLeftBlackOutline.png");
+    errorMsgLoadTextures("4livesLeftBlackOutline", surface);
+    game->textureHeartBlackFrames[3] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/5livesLeftBlackOutline.png");
+    errorMsgLoadTextures("5livesLeftBlackOutline", surface);
+    game->textureHeartBlackFrames[4] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/6livesLeftBlackOutline.png");
+    errorMsgLoadTextures("6livesLeftBlackOutline", surface);
+    game->textureHeartBlackFrames[5] = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    // Fire
+    surface = IMG_Load("img/fire.png");
+    errorMsgLoadTextures("fire", surface);
+    game->textureFire = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    // Coin count
+    surface = IMG_Load("img/coinTemp.png");
+    errorMsgLoadTextures("coinTemp", surface);
+    game->textureCoin = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Level number text
+    surface = IMG_Load("img/lvl01/level01.png");
+    errorMsgLoadTextures("lvl01/level01", surface);
+    game->textureLvl01 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/level02.png");
+    errorMsgLoadTextures("lvl02/level02", surface);
+    game->textureLvl02 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl03/level03.png");
+    errorMsgLoadTextures("lvl03/level03", surface);
+    game->textureLvl03 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl04/level04.png");
+    errorMsgLoadTextures("lvl04/level04", surface);
+    game->textureLvl04 = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    
+    // Level title text
+    surface = IMG_Load("img/lvl01/title01.png");
+    errorMsgLoadTextures("lvl01/title01", surface);
+    game->textureLvl01t = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/title02.png");
+    errorMsgLoadTextures("lvl02/title02", surface);
+    game->textureLvl02t = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl03/title03.png");
+    errorMsgLoadTextures("lvl03/title03", surface);
+    game->textureLvl03t = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl04/title04.png");
+    errorMsgLoadTextures("lvl04/title04", surface);
+    game->textureLvl04t = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    // Start menu
+    surface = IMG_Load("img/start2.png");
+    errorMsgLoadTextures("start2", surface);
+    game->textureTitlescreen = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/PlayIsMarked.png");
+    errorMsgLoadTextures("PlayIsMarked", surface);
+    game->texturePlay = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/CreditIsMarked.png");
+    errorMsgLoadTextures("CreditIsMarked", surface);
+    game->textureCredits = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/ExitIsMarked.png");
+    errorMsgLoadTextures("ExitIsMarked", surface);
+    game->textureExit = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Credits menu
+    surface = IMG_Load("img/credits.png");
+    errorMsgLoadTextures("credits", surface);
+    game->textureCreditsMenu = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Won screen
+    surface = IMG_Load("img/gamewon.png");
+    errorMsgLoadTextures("gamewon", surface);
+    game->textureWon = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/yes.png");
+    errorMsgLoadTextures("yes", surface);
+    game->textureYes = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/no.png");
+    errorMsgLoadTextures("no", surface);
+    game->textureNo = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Game over
+    surface = IMG_Load("img/gameover.png");
+    errorMsgLoadTextures("gameover", surface);
+    game->textureGameOver = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Shadow background
+    surface = IMG_Load("img/lvl03/background.png");
+    errorMsgLoadTextures("lvl03/background", surface);
+    game->textureShadowBackground = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Star sky level 01
+    surface = IMG_Load("img/lvl01/stars.png");
+    errorMsgLoadTextures("lvl01/stars", surface);
+    game->textureStars = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Clouds level 04
+    surface = IMG_Load("img/lvl04/cloudsFront.png");
+    errorMsgLoadTextures("lvl04/cloudsFront", surface);
+    game->textureCloudsFront = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl04/cloudsBack.png");
+    errorMsgLoadTextures("lvl04/cloudsBack", surface);
+    game->textureCloudsBack = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Statue
+    surface = IMG_Load("img/lvl04/statue.png");
+    errorMsgLoadTextures("lvl01/statue", surface);
+    game->textureStatue = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    // Grey Pillar
+    surface = IMG_Load("img/lvl02/pillar.png");
+    errorMsgLoadTextures("lvl02/pillar", surface);
+    game->textureGreyPillar = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/highLedge.png");
+    errorMsgLoadTextures("lvl02/highLedge", surface);
+    game->textureHighLedge = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl02/tilepattern.png");
+    errorMsgLoadTextures("lvl02/tilepattern", surface);
+    game->textureTilepattern = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/lvl03/pillar.png");
+    errorMsgLoadTextures("lvl03/pillar", surface);
+    game->textureShadowPillar = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    surface = IMG_Load("img/heart/heart.png");
+    errorMsgLoadTextures("heart", surface);
+    game->texturePickupheart = SDL_CreateTextureFromSurface(game->renderer, surface);
+    SDL_FreeSurface(surface);
+    
+    
+    //Load fonts
+    game->font = TTF_OpenFont("PIXELADE.TTF", 48);
+    game->font = TTF_OpenFont("PIXELADE.TTF", 32);
+    
+    
+    
+     // Load music
+     game->bg01 = Mix_LoadMUS("audio/Take_the_Lead.mp3");
+     game->bg02 = Mix_LoadMUS("audio/Cool_Rock.mp3");
+     game->bg03 = Mix_LoadMUS("audio/Saved_By_The_Ringtone.mp3");
+  // game->bg03 = Mix_LoadMUS("audio/Saved_By_The_Ringtone.mp3"); // Removed to avoid copyright issues
+     game->bg04 = Mix_LoadMUS("audio/The_Cannery.mp3");
+     game->bg05 = Mix_LoadMUS("audio/Kool_Kats.mp3");
+     game->bg06 = Mix_LoadMUS("audio/game_over.mp3");
+     game->bg07 = Mix_LoadMUS("audio/win_game.wav");
+    
+    
+    
+    // Load sounds
+    game->coinSound = Mix_LoadWAV("audio/coin.wav");
+    if (game->coinSound != NULL) {
+        Mix_VolumeChunk(game->coinSound, 128);
+    }
+    
+    game->hurt = Mix_LoadWAV("audio/hurt3.wav"); // Not currently used
+    if (game->hurt != NULL) {
+        Mix_VolumeChunk(game->hurt, 128);
+    }
+    
+    game->heartSound = Mix_LoadWAV("audio/heart2.wav");
+    if (game->heartSound != NULL) {
+        Mix_VolumeChunk(game->heartSound, 64);
+    }
+    
+    game->winLevel = Mix_LoadWAV("audio/win_level_2.wav");
+    if (game->winLevel != NULL) {
+        Mix_VolumeChunk(game->winLevel, 64);
+    }
+    
+    game->gameover_sound = Mix_LoadWAV("audio/gameover_sound.wav");
+    if (game->gameover_sound != NULL) {
+        Mix_VolumeChunk(game->gameover_sound, 64);
+    }
+    
+    // Initialize all attributes
+    game->label = NULL;
+    game->statusState = STATUS_STATE_MENU;
+    game->level = 0;
+    defineAttributes(game);
+    defineObjects(game);
+}
+
+/* Same function as loadgame, except images has to be loaded using the full path, because xcode is wierd and stupid,
+ so call this function in xCode, and loadgame in codeblocks*/
+void loadGameMac(GameState *game){
     
     /// Load textures
     SDL_Surface *surface = NULL;
     
     
     // Enemies
-    // surface = IMG_Load("img/enemy01.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/enemy01.png");
     errorMsgLoadTextures("lvl01/enemy01", surface);
     game->enemyFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/enemy02.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/enemy02.png");
     errorMsgLoadTextures("lvl01/enemy02", surface);
     game->enemyFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl01/enemy01Helmet.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl01/enemy01Helmet.png");
     errorMsgLoadTextures("enemy01Helmet", surface);
     game->enemyFramesHelmet[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl01/enemy02Helmet.png");
+   
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl01/enemy02Helmet.png");
     errorMsgLoadTextures("enemy02Helmet", surface);
     game->enemyFramesHelmet[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl01/enemy03Helmet.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl03/enemy01shadow.png");
     errorMsgLoadTextures("enemy01shadow", surface);
     game->enemyFramesShadow[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl03/enemy01shadow.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl03/enemy02shadow.png");
     errorMsgLoadTextures("enemy02shadow", surface);
     game->enemyFramesShadow[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl03/lvl04/enemy01.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/enemy01.png");
     errorMsgLoadTextures("lvl04/enemy01", surface);
     game->enemyFrames04[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl04/lvl04/enemy02.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/enemy02.png");
     errorMsgLoadTextures("lvl04/enemy02", surface);
     game->enemyFrames04[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl02/enemy01.png");
+  
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/enemy01.png");
     errorMsgLoadTextures("lvl02/enemy01", surface);
     game->enemyFrames02[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl02/enemy02.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/enemy02.png");
     errorMsgLoadTextures("lvl02/enemy02", surface);
     game->enemyFrames02[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Player
-    // surface = IMG_Load("img/player01.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/player01.png");
     errorMsgLoadTextures("player01", surface);
     game->manFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/player02.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/player02.png");
     errorMsgLoadTextures("player02", surface);
     game->manFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/playerJump.png");
+ 
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/playerJump.png");
     errorMsgLoadTextures("playerJump", surface);
     game->manFrames[2] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Torches
-    // surface = IMG_Load("img/lvl02/torch01.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/torch01.png");
     errorMsgLoadTextures("torch01", surface);
     game->torchFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl02/torch02.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/torch02.png");
     errorMsgLoadTextures("torch02", surface);
     game->torchFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/player01Helmet.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/player01Helmet.png");
     errorMsgLoadTextures("player01Helmet", surface);
     game->manFramesHelmet[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/player02Helmet.png");
+ 
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/player02Helmet.png");
     errorMsgLoadTextures("player02Helmet", surface);
     game->manFramesHelmet[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/playerJumpHelmet.png");
+  
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/playerJumpHelmet.png");
     errorMsgLoadTextures("playerJumpHelmet", surface);
     game->manFramesHelmet[2] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Pigeons
-    // surface = IMG_Load("img/lvl04/pigeon1.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/pigeon1.png");
     errorMsgLoadTextures("pigeon1", surface);
     game->pigeonFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl04/pigeon2.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/pigeon2.png");
     errorMsgLoadTextures("pigeon2", surface);
     game->pigeonFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -997,25 +1428,21 @@ void loadGame(GameState *game){
     
     
     // Grass ledges
-    // surface = IMG_Load("img/lvl01/ledge.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl01/ledge.png");
     errorMsgLoadTextures("lvl01/ledge", surface);
     game->textureLedgeLvl01 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl02/ledge.png");
+ 
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/ledge.png");
     errorMsgLoadTextures("lvl02/ledge", surface);
     game->textureLedgeLvl02 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl03/ledge.png");
+ 
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl03/ledge.png");
     errorMsgLoadTextures("lvl03/ledge", surface);
     game->textureLedgeLvl03 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl04/ledge.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/pillar.png");
     errorMsgLoadTextures("lvl04/pillar", surface);
     game->textureLedgeLvl04 = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1023,25 +1450,21 @@ void loadGame(GameState *game){
     
     
     // Paths
-    // surface = IMG_Load("img/lvl01/path.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl01/path.png");
     errorMsgLoadTextures("lvl01/path", surface);
     game->texturePathLvl01 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl02/path.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/path.png");
     errorMsgLoadTextures("lvl02/path", surface);
     game->texturePathLvl02 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl03/path.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl03/path.png");
     errorMsgLoadTextures("lvl03/path", surface);
     game->texturePathLvl03 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl04/path.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/path.png");
     errorMsgLoadTextures("lvl04/path", surface);
     game->texturePathLvl04 = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1049,7 +1472,6 @@ void loadGame(GameState *game){
     
     
     // Coins
-    // surface = IMG_Load("img/coinTemp.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/coinTemp.png");
     errorMsgLoadTextures("coinTemp", surface);
     game->textureCoins = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1057,7 +1479,6 @@ void loadGame(GameState *game){
     
     
     // Flags
-    // surface = IMG_Load("img/flag.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/flag.png");
     errorMsgLoadTextures("flag", surface);
     game->textureFlag = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1065,74 +1486,61 @@ void loadGame(GameState *game){
     
     
     // Heart
-    // surface = IMG_Load("img/heart/1livesLeftWhiteOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/1livesLeftWhiteOutline.png");
     errorMsgLoadTextures("1livesLeftWhiteOutline", surface);
     game->textureHeartWhiteFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    //  surface = IMG_Load("img/heart/2livesLeftWhiteOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/2livesLeftWhiteOutline.png");
     errorMsgLoadTextures("2livesLeftWhiteOutline", surface);
     game->textureHeartWhiteFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/heart/3livesLeftWhiteOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/3livesLeftWhiteOutline.png");
     errorMsgLoadTextures("3livesLeftWhiteOutline", surface);
     game->textureHeartWhiteFrames[2] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/heart/4livesLeftWhiteOutline.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/4livesLeftWhiteOutline.png");
     errorMsgLoadTextures("4livesLeftWhiteOutline", surface);
     game->textureHeartWhiteFrames[3] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/heart/5livesLeftWhiteOutline.png");
+
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/5livesLeftWhiteOutline.png");
     errorMsgLoadTextures("5livesLeftWhiteOutline", surface);
     game->textureHeartWhiteFrames[4] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    //surface = IMG_Load("img/heart/6livesLeftWhiteOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/6livesLeftWhiteOutline.png");
     errorMsgLoadTextures("6livesLeftWhiteOutline", surface);
     game->textureHeartWhiteFrames[5] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    
-    // surface = IMG_Load("img/heart/1livesLeftBlackOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/1livesLeftBlackOutline.png");
     errorMsgLoadTextures("1livesLeftBlackOutline", surface);
     game->textureHeartBlackFrames[0] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/heart/2livesLeftBlackOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/2livesLeftBlackOutline.png");
     errorMsgLoadTextures("2livesLeftBlackOutline", surface);
     game->textureHeartBlackFrames[1] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    //  surface = IMG_Load("img/heart/3livesLeftBlackOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/3livesLeftBlackOutline.png");
     errorMsgLoadTextures("3livesLeftBlackOutline", surface);
     game->textureHeartBlackFrames[2] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/heart/4livesLeftBlackOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/4livesLeftBlackOutline.png");
     errorMsgLoadTextures("4livesLeftBlackOutline", surface);
     game->textureHeartBlackFrames[3] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    //  surface = IMG_Load("img/heart/5livesLeftBlackOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/5livesLeftBlackOutline.png");
     errorMsgLoadTextures("5livesLeftBlackOutline", surface);
     game->textureHeartBlackFrames[4] = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/heart/6livesLeftBlackOutline.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/6livesLeftBlackOutline.png");
     errorMsgLoadTextures("6livesLeftBlackOutline", surface);
     game->textureHeartBlackFrames[5] = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1140,7 +1548,6 @@ void loadGame(GameState *game){
     
     
     // Fire
-    // surface = IMG_Load("img/fire.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/fire.png");
     errorMsgLoadTextures("fire", surface);
     game->textureFire = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1148,32 +1555,27 @@ void loadGame(GameState *game){
     
     
     // Coin count
-    // surface = IMG_Load("img/coinTemp.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/coinTemp.png");
     errorMsgLoadTextures("coinTemp", surface);
     game->textureCoin = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Level number text
-    // surface = IMG_Load("img/lvl01/level01.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl01/level01.png");
     errorMsgLoadTextures("lvl01/level01", surface);
     game->textureLvl01 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl02/level02.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/level02.png");
     errorMsgLoadTextures("lvl02/level02", surface);
     game->textureLvl02 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/lvl03/level03.png");
+ 
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl03/level03.png");
     errorMsgLoadTextures("lvl03/level03", surface);
     game->textureLvl03 = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl04/level04.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/level04.png");
     errorMsgLoadTextures("lvl04/level04", surface);
     game->textureLvl04 = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1182,25 +1584,21 @@ void loadGame(GameState *game){
     
     
     // Level title text
-    // surface = IMG_Load("img/lvl01/title01.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl01/title01.png");
     errorMsgLoadTextures("lvl01/title01", surface);
     game->textureLvl01t = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl02/title02.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/title02.png");
     errorMsgLoadTextures("lvl02/title02", surface);
     game->textureLvl02t = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl03/title03.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl03/title03.png");
     errorMsgLoadTextures("lvl03/title03", surface);
     game->textureLvl03t = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl04/title04.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/title04.png");
     errorMsgLoadTextures("lvl04/title04", surface);
     game->textureLvl04t = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1208,123 +1606,104 @@ void loadGame(GameState *game){
     
     
     // Start menu
-    // surface = IMG_Load("img/start2.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/start2.png");
     errorMsgLoadTextures("start2", surface);
     game->textureTitlescreen = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/PlayIsMarked.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/PlayIsMarked.png");
     errorMsgLoadTextures("PlayIsMarked", surface);
     game->texturePlay = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/CreditIsMarked.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/CreditIsMarked.png");
     errorMsgLoadTextures("CreditIsMarked", surface);
     game->textureCredits = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/ExitIsMarked.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/ExitIsMarked.png");
     errorMsgLoadTextures("ExitIsMarked", surface);
     game->textureExit = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Credits menu
-    // surface = IMG_Load("img/credits.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/credits.png");
     errorMsgLoadTextures("credits", surface);
     game->textureCreditsMenu = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Won screen
-    // surface = IMG_Load("img/gamewon.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/gamewon.png");
     errorMsgLoadTextures("gamewon", surface);
     game->textureWon = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/yes.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/yes.png");
     errorMsgLoadTextures("yes", surface);
     game->textureYes = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/no.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/no.png");
     errorMsgLoadTextures("no", surface);
     game->textureNo = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Game over
-    // surface = IMG_Load("img/gameover.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/gameover.png");
     errorMsgLoadTextures("gameover", surface);
     game->textureGameOver = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Shadow background
-    // surface = IMG_Load("img/lvl03/background.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl03/background.png");
     errorMsgLoadTextures("lvl03/background", surface);
     game->textureShadowBackground = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Star sky level 01
-    // surface = IMG_Load("img/lvl01/stars.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl01/stars.png");
     errorMsgLoadTextures("lvl01/stars", surface);
     game->textureStars = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Clouds level 04
-    // surface = IMG_Load("img/lvl04/cloudsFront.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/cloudsFront.png");
     errorMsgLoadTextures("lvl04/cloudsFront", surface);
     game->textureCloudsFront = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl04/cloudsBack.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/cloudsBack.png");
     errorMsgLoadTextures("lvl04/cloudsBack", surface);
     game->textureCloudsBack = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Statue
-    // surface = IMG_Load("img/lvl04/statue.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl04/statue.png");
     errorMsgLoadTextures("lvl01/statue", surface);
     game->textureStatue = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
     // Grey Pillar
-    // surface = IMG_Load("img/lvl02/pillar.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/pillar.png");
     errorMsgLoadTextures("lvl02/pillar", surface);
     game->textureGreyPillar = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    //  surface = IMG_Load("img/lvl02/highLedge.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/highLedge.png");
     errorMsgLoadTextures("lvl02/highLedge", surface);
     game->textureHighLedge = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl02/tilepattern.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl02/tilepattern.png");
     errorMsgLoadTextures("lvl02/tilepattern", surface);
     game->textureTilepattern = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
     
-    // surface = IMG_Load("img/lvl03/pillar.png");
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/lvl03/pillar.png");
     errorMsgLoadTextures("lvl03/pillar", surface);
     game->textureShadowPillar = SDL_CreateTextureFromSurface(game->renderer, surface);
     SDL_FreeSurface(surface);
-    
-    // surface = IMG_Load("img/heart/heart.png");
+ 
     surface = IMG_Load("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/img/heart/heart.png");
     errorMsgLoadTextures("heart", surface);
     game->texturePickupheart = SDL_CreateTextureFromSurface(game->renderer, surface);
@@ -1332,23 +1711,11 @@ void loadGame(GameState *game){
     
     
     //Load fonts
-    // game->font = TTF_OpenFont("PIXELADE.TTF", 48);
     game->font = TTF_OpenFont("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/PIXELADE.TTF", 48);
-    // game->font = TTF_OpenFont("PIXELADE.TTF", 32);
     game->font2 = TTF_OpenFont("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/PIXELADE.ttf", 32);
     
     
-    // Load music (WINDOWS)
-    // game->bg01 = Mix_LoadMUS("audio/Take_the_Lead.mp3");
-    // game->bg02 = Mix_LoadMUS("audio/Cool_Rock.mp3");
-    // game->bg03 = Mix_LoadMUS("audio/Saved_By_The_Ringtone.mp3");
-    // game->bg03 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Saved_By_The_Ringtone.mp3"); // Removed to avoid copyright issues
-    // game->bg04 = Mix_LoadMUS("audio/The_Cannery.mp3");
-    // game->bg05 = Mix_LoadMUS("audio/Kool_Kats.mp3");
-    // game->bg06 = Mix_LoadMUS("audio/game_over.mp3");
-    // game->bg07 = Mix_LoadMUS("audio/win_game.wav");
-    
-    // Load music (MAC)
+    // Load music
     game->bg01 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Take_the_Lead.mp3");
     game->bg02 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Cool_Rock.mp3");
     game->bg03 = Mix_LoadMUS("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/Cryptic_Sorrow.mp3");
@@ -1359,31 +1726,26 @@ void loadGame(GameState *game){
     
     
     // Load sounds
-    // game->coinSound = Mix_LoadWAV("audio/coin.wav");
     game->coinSound = Mix_LoadWAV("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/coin.wav");
     if (game->coinSound != NULL) {
         Mix_VolumeChunk(game->coinSound, 128);
     }
     
-    // game->hurt = Mix_LoadWAV("audio/hurt3.wav"); // Not currently used
     game->hurt = Mix_LoadWAV("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/hurt3.wav"); // Not currently used
     if (game->hurt != NULL) {
         Mix_VolumeChunk(game->hurt, 128);
     }
     
-    // game->heartSound = Mix_LoadWAV("audio/heart2.wav");
     game->heartSound = Mix_LoadWAV("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/heart2.wav");
     if (game->heartSound != NULL) {
         Mix_VolumeChunk(game->heartSound, 64);
     }
     
-    // game->winLevel = Mix_LoadWAV("audio/win_level_2.wav");
     game->winLevel = Mix_LoadWAV("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/win_level_2.wav");
     if (game->winLevel != NULL) {
         Mix_VolumeChunk(game->winLevel, 64);
     }
     
-    // game->gameover_sound = Mix_LoadWAV("audio/gameover_sound.wav");
     game->gameover_sound = Mix_LoadWAV("/Users/julieglasdam/Documents/xCode_projecter/PixelMan02/PixelMan02/audio/gameover_sound.wav");
     if (game->gameover_sound != NULL) {
         Mix_VolumeChunk(game->gameover_sound, 64);
@@ -2768,7 +3130,8 @@ int main(int argc, char *argv[]) {
     
     
     // Load textures
-    loadGame(&gameState);
+    loadGameMac(&gameState);
+    //loadGame(&gameState);
     
     // Event loop, initializing attributes, defining logic and drawing adding textures
     int done = 0;
